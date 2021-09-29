@@ -28,7 +28,7 @@ function app(people){
 
 function charaistics(people){
   let searchType = prompt("How would you like to search for charaistics? \nType 1 to search by eye color. \nPress 2 to search by height. \nPress 3 to search by weight. \nPress 4 to search by gender. \nPress 5 to search by occupation.");
-
+  //heh
 }
 
 // Menu function to call once you find who you are looking for

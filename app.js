@@ -28,29 +28,7 @@ function app(people){
 
 function charaistics(people){
   let searchType = prompt("How would you like to search for charaistics? \nType 1 to search by eye color. \nPress 2 to search by height. \nPress 3 to search by weight. \nPress 4 to search by gender. \nPress 5 to search by occupation.");
-  let searchResults;
-  switch(searchType){
-    case '1':
-      searchResults = searchByEyeColor(people);
-      break;
-    case '2':
-      searchResults = searchByHeight(people);
-      break;
-    case '3':
-      searchResults = searchByWeight(people);
-      break;
-    case '4':
-      searchResults = searchByGender(people);
-      break;
-    case '5':
-      searchResults = searchByOccupation(people);
-      break;
-      default:
-    app(people);
-    break;
-  }
 
-  mainMenu(searchResults, people);
 }
 
 // Menu function to call once you find who you are looking for

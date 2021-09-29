@@ -27,7 +27,7 @@ function app(people){
 }
 
 function charaistics(people){
-  let searchType = prompt("How would you like to search for charaistics? \nType 1 to search by eye color. \nPress 2 to search by height. \nPress 3 to search by weight. \nPress 4 to search by gender. \nPress 5 to search by occupation.");
+  let searchType = prompt("How would you like to search for charaistics? \nType 1 to search by eye color. \nPress 2 to search by height. \nPress 3 to search by weight. \nPress 4 to search by gender. \nPress 5 to search by occupation. \nPress 6 to search by multiple characteristics.");
   let searchResults;
   switch(searchType){
     case '1':
@@ -44,6 +44,9 @@ function charaistics(people){
       break;
     case '5':
       searchResults = searchByOccupation(people);
+      break;
+    case '6':
+      searchResults = searchByEyeColor(people) + searchByHeight(people) + searchByWeight(people) + searchByGender(people) + searchByOccupation(people);
       break;
       default:
     app(people);
@@ -117,6 +120,9 @@ function searchByEyeColor(people){
     if(potentialMatch.personsEyeColor === eyeColor){
       return true;
     }
+    else if(potentialMatch.personsEyeColor === ""){
+      return true;
+    }
     else{
       return false;
     }
@@ -132,27 +138,65 @@ function searchByHeight(people){
     if(potenialMatch.personsHeight === height){
       return true;
     }
-    else{
-      return false;
-    }
-  })
-  return personsHeight
-}
-
-function searchByGender(people){
-  let gender = promptFor("What is the peron's Gender", autoValid);
-
-  let personsGender = people.filter(function(potentialMatch){
-    if(potentialMatch.personHeight === gender){
+    else if(potenialMatch.personsHeight === ""){
       return true;
     }
     else{
       return false;
     }
   })
-  return personsGender 
+  return personsHeight;
 }
 
+function searchByWeight(people){
+  let weight = promptFor("What is the person's weight?", autoValid);
+
+  let personsWeight = people.filter(function(potentialMatch){
+    if(potentialMatch.personsWeight === weight){
+      return true;
+    }
+    else if(potentialMatch.personsWeight === ""){
+      return true;
+    }
+    else{
+      return false;
+    }
+  })
+  return personsWeight;
+}
+function searchByGender(people){
+  let gender = promptFor("What is the peron's Gender", autoValid);
+
+  let personsGender = people.filter(function(potentialMatch){
+    if(potentialMatch.personsGender === gender){
+      return true;
+    }
+    else if(potentialMatch.personsGender === ""){
+      return true;
+    }
+    else{
+      return false;
+    }
+  })
+  return personsGender; 
+}
+
+function searchByOccupation(people){
+  let occupation = promptFor("What is the person's occupation?", autoValid);
+
+  let personsOccupation = people.filter(function(potentialMatch){
+    if(potentialMatch.personsOccupation === occupation){
+      return true;
+    }
+    else if(potentialMatch.personsOccupation === ""){
+      return true;
+    }
+    else{
+      return false;
+    }
+  })
+  return personsOccupation;
+}
 
 //#endregion
 

@@ -5,7 +5,7 @@
 //Used for the overall flow of the application.
 /////////////////////////////////////////////////////////////////
 //#region 
-console.log("hello world")
+
 // app is the function called to start the entire application
 function app(people){
   let searchType = promptFor("Do you know the name of the person you are looking for? Enter 'yes' or 'no'", yesNo).toLowerCase();
@@ -15,8 +15,7 @@ function app(people){
       searchResults = searchByName(people);
       break;
     case 'no':
-      // TODO: search by traits
-
+      charaistics(people); 
       break;
       default:
     app(people); // restart app
@@ -25,6 +24,11 @@ function app(people){
   
   // Call the mainMenu function ONLY after you find the SINGLE person you are looking for
   mainMenu(searchResults, people);
+}
+
+function charaistics(people){
+  let searchType = prompt("How would you like to search for charaistics? \nType 1 to search by eye color. \nPress 2 to search by height. \nPress 3 to search by weight. \nPress 4 to search by gender. \nPress 5 to search by occupation.");
+
 }
 
 // Menu function to call once you find who you are looking for
@@ -85,7 +89,17 @@ function searchByName(people){
 
 //unfinished function to search through an array of people to find matching eye colors. Use searchByName as reference.
 function searchByEyeColor(people){
+  let eyeColor = promptFor("what is the person's eye color?", autoValid);
 
+  let personsEyeColor = people.filter(function(potentialMatch){
+    if(potentialMatch.personsEyeColor === eyeColor){
+      return true;
+    }
+    else{
+      return false;
+    }
+  })
+  return personsEyeColor;
 }
 
 //TODO: add other trait filter functions here.
@@ -160,4 +174,3 @@ function customValidation(input){
 }
 
 //#endregion
-

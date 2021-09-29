@@ -125,7 +125,7 @@ function searchByEyeColor(people){
 }
 
 //TODO: add other trait filter functions here.
-function searchByHeight(peope){
+function searchByHeight(people){
   let height = promptFor("What is the person's Height?", autoValid);
 
   let personsHeight = people.filter(function(potenialMatch){
@@ -139,6 +139,19 @@ function searchByHeight(peope){
   return personsHeight
 }
 
+function searchByGender(people){
+  let gender = promptFor("What is the peron's Gender", autoValid);
+
+  let personsGender = people.filter(function(potentialMatch){
+    if(potentialMatch.personHeight === gender){
+      return true;
+    }
+    else{
+      return false;
+    }
+  })
+  return personsGender 
+}
 
 
 //#endregion

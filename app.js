@@ -85,7 +85,7 @@ function mainMenu(person, people){
     displayFamily(person, people);
     break;
     case "descendants":
-    displayDecendants(person, people);
+    displayDescendants(person, people);
     break;
     case "restart":
     app(people); // restart
@@ -248,17 +248,18 @@ function displayFamily(person, people){
 
   family += "Spouse:" + spouse + "\n";
   family += "Siblings:" + siblings + "\n";
-  family += "Kids:" + kids;
+  family += "Kids:" + kids + "\n";
 
   alert(family);
   app(people);
 }
 
-function displayDecendants(person, people){
+function displayDescendants(person, people){
  
   if(descendants.length === 0){
     descendants = "Descendants not in data."
   }
+
   alert(descendants);
   app(people);
 }
@@ -281,7 +282,6 @@ function getParents(person, people){
   }
   return parentsToReturn;
 }
-
 function getSpouse(person, people){
   let spouse;
   let spouseArray = [];
@@ -300,7 +300,6 @@ function getSpouse(person, people){
   spouseToReturn = spouse.firstName + " " + spouse.lastName;
   return spouseToReturn;
 }
-
 function getSiblings(person, people){
   let siblings = [];
   let siblingsToReturn = "";
@@ -328,8 +327,6 @@ function getSiblings(person, people){
   }
   return siblingsToReturn;
 }
-
-
 //#endregion
 
 

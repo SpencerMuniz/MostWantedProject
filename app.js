@@ -15,7 +15,7 @@ function app(people){
       searchResults = searchByName(people);
       break;
     case 'no':
-      searchResults = charaistics(people); 
+      searchResults = characteristics(people); 
       break;
       default:
     app(people); // restart app
@@ -31,7 +31,7 @@ function app(people){
   
 }
 
-function charaistics(people){
+function characteristics(people){
   let searchType = prompt("How would you like to search for characteristics? \nType 1 to search by eye color. \nPress 2 to search by height. \nPress 3 to search by weight. \nPress 4 to search by gender. \nPress 5 to search by occupation. \nPress 6 to search by multiple characteristics.");
   let searchResults;
   switch(searchType){
@@ -51,7 +51,7 @@ function charaistics(people){
       searchResults = searchByOccupation(people);
       break;
     case '6':
-      searchResults = searchByEyeColor(people) + searchByHeight(people) + searchByWeight(people) + searchByGender(people) + searchByOccupation(people);
+      searchResults = searchByCharacteristics(people);
       break;
       default:
     app(people);
@@ -82,10 +82,10 @@ function mainMenu(person, people){
     displayPerson(person);
     break;
     case "family":
-    displayFamily(person, people);
+    displayFamily(person);
     break;
     case "descendants":
-    displayDescendants(person, people);
+    // displayDescendants(person, people);
     break;
     case "restart":
     app(people); // restart
@@ -127,7 +127,7 @@ function searchByEyeColor(people){
   let eyeColor = promptFor("what is the person's eye color?", autoValid);
 
   let personsEyeColor = people.filter(function(potentialMatch){
-    if(potentialMatch.personsEyeColor === eyeColor){
+    if(potentialMatch.eyeColor === eyeColor){
       return true;
     }
     else{
@@ -135,7 +135,7 @@ function searchByEyeColor(people){
     }
   });
   
-  return personsEyeColor;
+  return displayPeople(personsEyeColor);
 }
 
 //TODO: add other trait filter functions here.
@@ -143,7 +143,7 @@ function searchByHeight(people){
   let height = parseInt(promptFor("What is the person's Height?", autoValid));
 
   let personsHeight = people.filter(function(potenialMatch){
-    if(potenialMatch.personsHeight === height){
+    if(potenialMatch.height === height){
       return true;
     }
     else if(potenialMatch.personsHeight === ""){
@@ -154,14 +154,14 @@ function searchByHeight(people){
     }
   })
   //
-  return personsHeight;
+  return displayPeople(personsHeight);
 }
 
 function searchByWeight(people){
   let weight = parseInt(promptFor("What is the person's weight?", autoValid));
 
   let personsWeight = people.filter(function(potentialMatch){
-    if(potentialMatch.personsWeight === weight){
+    if(potentialMatch.weight === weight){
       return true;
     }
     else if(potentialMatch.personsWeight === ""){
@@ -172,13 +172,13 @@ function searchByWeight(people){
     }
   })
   //
-  return personsWeight;
+  return displayPeople(personsWeight);
 }
 function searchByGender(people){
   let gender = promptFor("What is the peron's Gender", autoValid);
 
   let personsGender = people.filter(function(potentialMatch){
-    if(potentialMatch.personsGender === gender){
+    if(potentialMatch.gender === gender){
       return true;
     }
     else if(potentialMatch.personsGender === ""){
@@ -189,14 +189,14 @@ function searchByGender(people){
     }
   })
   //
-  return personsGender; 
+  return displayPeople(personsGender); 
 }
 
 function searchByOccupation(people){
   let occupation = promptFor("What is the person's occupation?", autoValid);
 
   let personsOccupation = people.filter(function(potentialMatch){
-    if(potentialMatch.personsOccupation === occupation){
+    if(potentialMatch.occupation === occupation){
       return true;
     }
     else if(potentialMatch.personsOccupation === ""){
@@ -207,7 +207,31 @@ function searchByOccupation(people){
     }
   })
   //
-  return personsOccupation;
+  return displayPeople(personsOccupation);
+}
+
+function searchByCharacteristics(people){
+  let list = "";
+
+  let filterList = searchByEyeColor(people);
+  filterList += searchByHeight(people);
+  filterList += searchByWeight(people);
+  filterList += searchByGender(people);
+  filterList += searchByOccupation(people);
+
+  if(filterList.length === 22){
+    alert("You have no defining characteristics, there is no one to display!")
+  }
+  else if(filterList.length === 0){
+    alert("There is no one that meets your criteria.");
+  }
+  else{
+    for(i = 0; i < filterList.length; i++){
+      list += filterList[i].firstName + " " + filterList[i].lastName + ". ";
+    }
+    alert(list);
+  }
+  app(people);
 }
 
 //#endregion
@@ -233,23 +257,15 @@ function displayPerson(person){
   personInfo += "Weight: " + person.weight + "\n";
   personInfo += "Eye Color: " + person.eyeColor + "\n";
   personInfo += "Occupation: " + person.occupation + "\n";
-  personInfo += "Parents: " + person.parent + "\n";
+  personInfo += "Parents: " + person.parents + "\n";
   personInfo += "Spouse: " + person.spouse;
     alert(personInfo);
 }
 
-function displayFamily(person, people){
-
-  let parents = getParents(person, people);
-  let spouse = getSpouse(person, people);
-  let siblings = getSiblings(person, people);
-  let kids = getKids(person, people);
-  let family = "Parents:" + parents + "\n";
-
-  family += "Spouse:" + spouse + "\n";
-  family += "Siblings:" + siblings + "\n";
-  family += "Kids:" + kids + "\n";
-
+function displayFamily(person){
+  let family = "Parents:" + person.parents + "\n";
+  family += "Spouse:" + person.spouse + "\n";
+  family += "Siblings:" + person.siblings + "\n";
   alert(family);
   app(people);
 }

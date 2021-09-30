@@ -91,7 +91,7 @@ function mainMenu(person, people){
     displayPerson(person);
     break;
     case "family":
-    displayFamily(person);
+    displayFamily(person, people);
     break;
     case "descendants":
     // displayDescendants(person, people);
@@ -247,10 +247,14 @@ function displayPerson(person){
     alert(personInfo);
 }
 
-function displayFamily(people){
-  let family = "Parents:" + people.parents + "\n";
-  family += "Spouse:" + people.currentSpouse + "\n";
-  family += "Siblings:" + people.siblings + "\n";
+function displayFamily(person, people){
+  let parents = getParents(person, people);
+  let spouse = getSpouse(person, people);
+  let siblings = getSiblings(person, people);
+
+  let family = "Parents:" + parents + "\n";
+  family += "Spouse:" + spouse + "\n";
+  family += "Siblings:" + siblings + "\n";
   alert(family);
   app(people);
 }
@@ -283,6 +287,7 @@ function getParents(person, people){
   }
   return parentsToReturn;
 }
+
 function getSpouse(person, people){
   let spouse;
   let spouseArray = [];
@@ -301,6 +306,7 @@ function getSpouse(person, people){
   spouseToReturn = spouse.firstName + " " + spouse.lastName;
   return spouseToReturn;
 }
+
 function getSiblings(person, people){
   let siblings = [];
   let siblingsToReturn = "";
@@ -318,7 +324,7 @@ function getSiblings(person, people){
       else if(element.parents[0] === person.parents[0] || element.parents[0] === person.parents[1]){
         return true;
       }
-      else if(element.parents[1] === person.parents[0] || element.parents[1] === person,parents[1]){
+      else if(element.parents[1] === person.parents[0] || element.parents[1] === person.parents[1]){
         return true;
       }
     });

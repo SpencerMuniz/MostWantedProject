@@ -12,7 +12,7 @@ function app(people){
   let searchResults;
   switch(searchType){
     case 'yes':
-      searchResults = searchByName(people);
+      searchByName(people);
       break;
     case 'no':
       charaistics(people); 
@@ -60,14 +60,19 @@ function charaistics(people){
 function mainMenu(person, people){
 
   /* Here we pass in the entire person object that we found in our search, as well as the entire original dataset of people. We need people in order to find descendants and other information that the user may want. */
-  displayPerson(person);
-    if(!person){
+  if(!person){
       alert("Could not find that individual.");
       return app(people); // restart
     }
   
   let displayOption = promptFor("Found " + person.firstName + " " + person.lastName + " . Do you want to know their 'info', 'family', or 'descendants'? Type the option you want or 'restart' or 'quit'", autoValid);
 
+  if(displayOption === null) {
+    app(people)
+  }
+  else{
+    displayOption = displayOption.toLowerCase();
+  
   switch(displayOption){
     case "info":
     displayPerson(person, people);
@@ -87,6 +92,7 @@ function mainMenu(person, people){
     return mainMenu(person, people); // ask again
   }
 }
+}
 
 //#endregion
 
@@ -100,16 +106,16 @@ function searchByName(people){
   let firstName = promptFor("What is the person's first name?", autoValid);
   let lastName = promptFor("What is the person's last name?", autoValid);
 
-  let foundPerson = people.filter(function(potentialMatch){
-    if(potentialMatch.firstName === firstName && potentialMatch.lastName === lastName){
-      return true;
-    }
-    else{
-      return false;
-    }
-  })
-  // TODO: find the person single person object using the name they entered.
-  return displayPeople(foundPerson);
+let person;
+let personFoundArry = people.filter(function (element){
+  if(element.firstName.toLowerCase() === firstName.toLowerCase() && element.lastName.toLowerCase() === lastName.toLowerCase()){
+    return true;
+  }
+}) ;
+person = personFoundArry.pop();
+
+mainMenu(person, people)
+// TODO: find the person single person object using the name they ent
 }
 
 //unfinished function to search through an array of people to find matching eye colors. Use searchByName as reference.
@@ -162,7 +168,7 @@ function searchByWeight(people){
     }
   })
   //
-  return displayPeople(personsWeight);
+  return personsWeight;
 }
 function searchByGender(people){
   let gender = promptFor("What is the peron's Gender", autoValid);
@@ -214,21 +220,20 @@ function displayPeople(people){
   }).join("\n"));
 }
 
-function displayPerson(person){
+function displayPerson(person, people){
   // print all of the information about a person:
   // height, weight, age, name, occupation, eye color.
   let personInfo = "First Name: " + person.firstName + "\n";
   personInfo += "Last Name: " + person.lastName + "\n";
   personInfo += "Gender: " + person.gender + "\n";
-  personInfo += "DOB: " + person.dob + "\n";
   personInfo += "Height: " + person.height + "\n";
-  perosnInfo += "Weight: " + person.weight + "\n";
-  personInfo += "Eye Color: " + perosn.eyecolor + "\n";
+  personInfo += "Weight: " + person.weight + "\n";
+  personInfo += "Eye Color: " + person.eyeColor + "\n";
   personInfo += "Occupation: " + person.occupation + "\n";
-  personInfo += "Parents: " + parent + "\n";
-  personInfo += "Spouse: " + spouse;
+
   //
     alert(personInfo);
+    app(people);
 }
 
 function displayFamily(person, people){
@@ -247,7 +252,15 @@ function displayFamily(person, people){
   app(people);
 }
 
+function displayDescendants(person, people){
+ 
+  if(descendants.length === 0){
+    descendants = "Descendants not in data."
+  }
 
+  alert(descendants);
+  app(people);
+}
 
 
 //#endregion
@@ -268,7 +281,7 @@ function promptFor(question, valid){
   do{
     var response = prompt(question).trim();
     isValid = valid(response);
-  } while(response === ""  ||  isValid === false)
+  } while(!response || !valid(response));
   return response;
 }
 

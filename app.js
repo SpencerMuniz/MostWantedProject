@@ -221,8 +221,8 @@ function displayPeople(people){
 }
 
 function displayPerson(person, people){
-  // print all of the information about a person:
-  // height, weight, age, name, occupation, eye color.
+  let parent = getParents(person, people);
+  let spouse = getSpouse(person, people);
   let personInfo = "First Name: " + person.firstName + "\n";
   personInfo += "Last Name: " + person.lastName + "\n";
   personInfo += "Gender: " + person.gender + "\n";
@@ -230,8 +230,8 @@ function displayPerson(person, people){
   personInfo += "Weight: " + person.weight + "\n";
   personInfo += "Eye Color: " + person.eyeColor + "\n";
   personInfo += "Occupation: " + person.occupation + "\n";
-
-  //
+  personInfo += "Parents: " + parent + "\n";
+  personInfo += "Spouse: " + spouse;
     alert(personInfo);
     app(people);
 }
@@ -246,20 +246,85 @@ function displayFamily(person, people){
 
   family += "Spouse:" + spouse + "\n";
   family += "Siblings:" + siblings + "\n";
-  family += "Kids:" + kids + "\n";
+  family += "Kids:" + kids;
 
   alert(family);
   app(people);
 }
 
-function displayDescendants(person, people){
+function displayDecendants(person, people){
  
   if(descendants.length === 0){
     descendants = "Descendants not in data."
   }
-
   alert(descendants);
   app(people);
+}
+
+function getParents(person, people){
+  let parents = [];
+  let parentsToReturn = "";
+  if(person.parents.length === 0){
+    return "Parents not in data set."
+  }
+  else{
+    parents = people.filter(function(element){
+      if(element.id === person.parents[0] || element.id === person.parents[1]){
+        return true;
+      }
+    });
+  }
+  for(let i = 0; i < parents.length; i++){
+    parentsToReturn += parents[i].firstName + " " + parents[i].lastName + ". ";
+  }
+  return parentsToReturn;
+}
+
+function getSpouse(person, people){
+  let spouse;
+  let spouseArray = [];
+  let spouseToReturn = "";
+  if(person.currentSpouse === null){
+    return "Spouse not in data set.";
+  }
+  else{
+    spouseArray = people.filter(function (element){
+      if(element.id === person.currentSpouse){
+        return true;
+      }
+    });
+  }
+  spouse = spouseArray.pop();
+  spouseToReturn = spouse.firstName + " " + spouse.lastName;
+  return spouseToReturn;
+}
+
+function getSiblings(person, people){
+  let siblings = [];
+  let siblingsToReturn = "";
+  if(person.parents.length === 0){
+    return "siblings not in data set."
+  }
+  else{
+    siblings = people.filter(function (element){
+      if(element.parents.length === 0){
+        return false;
+      }
+      else if(element === person){
+        return false;
+      }
+      else if(element.parents[0] === person.parents[0] || element.parents[0] === person.parents[1]){
+        return true;
+      }
+      else if(element.parents[1] === person.parents[0] || element.parents[1] === person,parents[1]){
+        return true;
+      }
+    });
+  }
+  for(let i = 0; i < siblings.length; i++){
+    siblingsToReturn += siblings[i].firstName + " " + siblings[i].lastName + ". ";
+  }
+  return siblingsToReturn;
 }
 
 

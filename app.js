@@ -73,10 +73,10 @@ function mainMenu(person, people){
     displayPerson(person, people);
     break;
     case "family":
-    // TODO: get person's family
+    displayFamily(person, people);
     break;
     case "descendants":
-    // TODO: get person's descendants
+    displayDecendants(person, people);
     break;
     case "restart":
     app(people); // restart
@@ -223,7 +223,20 @@ function displayPerson(person){
     alert(personInfo);
 }
 
-//#endregion
+function displayFamily(person, people){
+  let parents = getParents(person, people);
+  let spouse = getSpouse(person, people);
+  let siblings = getSiblings(person, people);
+  let kids = getKids(person, people);
+  let family = "Parents:" + parents + "\n";
+
+  family += "Spouse:" + spouse + "\n";
+  family += "Siblings:" + siblings + "\n";
+  family += "Kids:" + kids + "\n";
+
+  alert(family);
+  app(people);
+}
 
 
 

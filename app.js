@@ -219,9 +219,23 @@ function displayPerson(person){
   // height, weight, age, name, occupation, eye color.
   let personInfo = "First Name: " + person.firstName + "\n";
   personInfo += "Last Name: " + person.lastName + "\n";
+  personInfo += "Gender: " + person.gender + "\n";
+  personInfo += "DOB: " + person.dob + "\n";
+  personInfo += "Height: " + person.height + "\n";
+  perosnInfo += "Weight: " + person.weight + "\n";
+  personInfo += "Eye Color: " + perosn.eyecolor + "\n";
+  personInfo += "Occupation: " + person.occupation + "\n";
+  personInfo += "Parents: " + parent + "\n";
+  personInfo += "Spouse: " + spouse;
   //
     alert(personInfo);
 }
+
+function displayFamily(person, people){
+
+
+}
+
 
 //#endregion
 

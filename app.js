@@ -12,18 +12,23 @@ function app(people){
   let searchResults;
   switch(searchType){
     case 'yes':
-      searchByName(people);
+      searchResults = searchByName(people);
       break;
     case 'no':
-      charaistics(people); 
+      searchResults = charaistics(people); 
       break;
       default:
     app(people); // restart app
       break;
   }
-  
+  if(searchResults.length > 1){
+    displayPeople(searchResults)
+  }
+  else{
+    mainMenu(searchResults, people);
+  }
   // Call the mainMenu function ONLY after you find the SINGLE person you are looking for
-  mainMenu(searchResults, people);
+  
 }
 
 function charaistics(people){
@@ -52,8 +57,7 @@ function charaistics(people){
     app(people);
     break;
   }
-
-  mainMenu(searchResults, people);
+  return searchResults
 }
 
 // Menu function to call once you find who you are looking for
@@ -75,7 +79,7 @@ function mainMenu(person, people){
   
   switch(displayOption){
     case "info":
-    displayPerson(person, people);
+    displayPerson(person);
     break;
     case "family":
     displayFamily(person, people);
@@ -220,9 +224,8 @@ function displayPeople(people){
   }).join("\n"));
 }
 
-function displayPerson(person, people){
-  let parent = getParents(person, people);
-  let spouse = getSpouse(person, people);
+function displayPerson(person){
+
   let personInfo = "First Name: " + person.firstName + "\n";
   personInfo += "Last Name: " + person.lastName + "\n";
   personInfo += "Gender: " + person.gender + "\n";
@@ -230,10 +233,9 @@ function displayPerson(person, people){
   personInfo += "Weight: " + person.weight + "\n";
   personInfo += "Eye Color: " + person.eyeColor + "\n";
   personInfo += "Occupation: " + person.occupation + "\n";
-  personInfo += "Parents: " + parent + "\n";
-  personInfo += "Spouse: " + spouse;
+  personInfo += "Parents: " + person.parent + "\n";
+  personInfo += "Spouse: " + person.spouse;
     alert(personInfo);
-    app(people);
 }
 
 function displayFamily(person, people){

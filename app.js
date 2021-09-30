@@ -81,7 +81,7 @@ function mainMenu(person, people){
     displayFamily(person, people);
     break;
     case "descendants":
-    displayDecendants(person, people);
+    displayDescendants(person, people);
     break;
     case "restart":
     app(people); // restart
@@ -221,8 +221,8 @@ function displayPeople(people){
 }
 
 function displayPerson(person, people){
-  let parent = getParents(person, people);
-  let spouse = getSpouse(person, people);
+  // print all of the information about a person:
+  // height, weight, age, name, occupation, eye color.
   let personInfo = "First Name: " + person.firstName + "\n";
   personInfo += "Last Name: " + person.lastName + "\n";
   personInfo += "Gender: " + person.gender + "\n";
@@ -230,8 +230,8 @@ function displayPerson(person, people){
   personInfo += "Weight: " + person.weight + "\n";
   personInfo += "Eye Color: " + person.eyeColor + "\n";
   personInfo += "Occupation: " + person.occupation + "\n";
-  personInfo += "Parents: " + parent + "\n";
-  personInfo += "Spouse: " + spouse;
+
+  //
     alert(personInfo);
     app(people);
 }
@@ -246,17 +246,18 @@ function displayFamily(person, people){
 
   family += "Spouse:" + spouse + "\n";
   family += "Siblings:" + siblings + "\n";
-  family += "Kids:" + kids;
+  family += "Kids:" + kids + "\n";
 
   alert(family);
   app(people);
 }
 
-function displayDecendants(person, people){
+function displayDescendants(person, people){
  
   if(descendants.length === 0){
     descendants = "Descendants not in data."
   }
+
   alert(descendants);
   app(people);
 }
@@ -279,7 +280,6 @@ function getParents(person, people){
   }
   return parentsToReturn;
 }
-
 function getSpouse(person, people){
   let spouse;
   let spouseArray = [];
@@ -298,7 +298,6 @@ function getSpouse(person, people){
   spouseToReturn = spouse.firstName + " " + spouse.lastName;
   return spouseToReturn;
 }
-
 function getSiblings(person, people){
   let siblings = [];
   let siblingsToReturn = "";
@@ -326,8 +325,6 @@ function getSiblings(person, people){
   }
   return siblingsToReturn;
 }
-
-
 //#endregion
 
 

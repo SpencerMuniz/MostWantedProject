@@ -32,32 +32,41 @@ function app(people){
 }
 
 function characteristics(people){
-  let searchType = prompt("How would you like to search for characteristics? \nType 1 to search by eye color. \nPress 2 to search by height. \nPress 3 to search by weight. \nPress 4 to search by gender. \nPress 5 to search by occupation. \nPress 6 to search by multiple characteristics.");
-  let searchResults;
-  switch(searchType){
-    case '1':
-      searchResults = searchByEyeColor(people);
+  let searchResults = people;
+  let searchType;
+  while(searchType != "6"){
+    searchType = prompt("How would you like to search for characteristics? \nType 1 to search by eye color. \nPress 2 to search by height. \nPress 3 to search by weight. \nPress 4 to search by gender. \nPress 5 to search by occupation. \nPress 6 to see results");
+  
+    switch(searchType){
+      case '1':
+        searchResults = searchByEyeColor(searchResults);
+        break;
+      case '2':
+        searchResults = searchByHeight(searchResults);
+        break;
+      case '3':
+        searchResults = searchByWeight(searchResults);
+        break;
+      case '4':
+        searchResults = searchByGender(searchResults);
+        break;
+      case '5':
+        searchResults = searchByOccupation(searchResults);
+        break;
+      case '6':
+        break;
+        default:
+      app(people);
       break;
-    case '2':
-      searchResults = searchByHeight(people);
-      break;
-    case '3':
-      searchResults = searchByWeight(people);
-      break;
-    case '4':
-      searchResults = searchByGender(people);
-      break;
-    case '5':
-      searchResults = searchByOccupation(people);
-      break;
-    case '6':
-      searchResults = searchByCharacteristics(people);
-      break;
-      default:
-    app(people);
-    break;
+    }
   }
-  return searchResults
+  
+  if(searchResults.length = 1){
+    displayPeople(searchResults)
+  }
+  else{
+    mainMenu(searchResults, people);
+  }
 }
 
 // Menu function to call once you find who you are looking for
@@ -135,7 +144,7 @@ function searchByEyeColor(people){
     }
   });
   
-  return displayPeople(personsEyeColor);
+  return personsEyeColor;
 }
 
 //TODO: add other trait filter functions here.
@@ -154,7 +163,7 @@ function searchByHeight(people){
     }
   })
   //
-  return displayPeople(personsHeight);
+  return personsHeight;
 }
 
 function searchByWeight(people){
@@ -172,7 +181,7 @@ function searchByWeight(people){
     }
   })
   //
-  return displayPeople(personsWeight);
+  return personsWeight;
 }
 function searchByGender(people){
   let gender = promptFor("What is the peron's Gender", autoValid);
@@ -189,7 +198,7 @@ function searchByGender(people){
     }
   })
   //
-  return displayPeople(personsGender); 
+  return personsGender; 
 }
 
 function searchByOccupation(people){
@@ -207,31 +216,7 @@ function searchByOccupation(people){
     }
   })
   //
-  return displayPeople(personsOccupation);
-}
-
-function searchByCharacteristics(people){
-  let list = "";
-
-  let filterList = searchByEyeColor(people);
-  filterList += searchByHeight(people);
-  filterList += searchByWeight(people);
-  filterList += searchByGender(people);
-  filterList += searchByOccupation(people);
-
-  if(filterList.length === 22){
-    alert("You have no defining characteristics, there is no one to display!")
-  }
-  else if(filterList.length === 0){
-    alert("There is no one that meets your criteria.");
-  }
-  else{
-    for(i = 0; i < filterList.length; i++){
-      list += filterList[i].firstName + " " + filterList[i].lastName + ". ";
-    }
-    alert(list);
-  }
-  app(people);
+  return personsOccupation;
 }
 
 //#endregion
@@ -258,14 +243,14 @@ function displayPerson(person){
   personInfo += "Eye Color: " + person.eyeColor + "\n";
   personInfo += "Occupation: " + person.occupation + "\n";
   personInfo += "Parents: " + person.parents + "\n";
-  personInfo += "Spouse: " + person.spouse;
+  personInfo += "Spouse: " + person.currentSpouse;
     alert(personInfo);
 }
 
-function displayFamily(person){
-  let family = "Parents:" + person.parents + "\n";
-  family += "Spouse:" + person.spouse + "\n";
-  family += "Siblings:" + person.siblings + "\n";
+function displayFamily(people){
+  let family = "Parents:" + people.parents + "\n";
+  family += "Spouse:" + people.currentSpouse + "\n";
+  family += "Siblings:" + people.siblings + "\n";
   alert(family);
   app(people);
 }

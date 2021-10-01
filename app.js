@@ -35,7 +35,7 @@ function characteristics(people){
   let searchResults = people;
   let searchType;
   while(searchType != "6"){
-    searchType = prompt("How would you like to search for characteristics? \nType 1 to search by eye color. \nPress 2 to search by height. \nPress 3 to search by weight. \nPress 4 to search by gender. \nPress 5 to search by occupation. \nPress 6 to see results");
+    searchType = prompt("Enter in all known characteristics and when finished press 6 to see results. \nType 1 to enter eye color. \nPress 2 to enter height. \nPress 3 to enter weight. \nPress 4 to enter gender. \nPress 5 to enter occupation. \nPress 6 to see results");
   
     switch(searchType){
       case '1':
@@ -61,7 +61,7 @@ function characteristics(people){
     }
   }
   
-  if(searchResults.length = 1){
+  if(searchResults.length > 0){
     displayPeople(searchResults)
   }
   else{

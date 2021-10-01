@@ -88,7 +88,7 @@ function mainMenu(person, people){
   
   switch(displayOption){
     case "info":
-    displayPerson(person);
+    displayPerson(person, people);
     break;
     case "family":
     displayFamily(person, people);
@@ -233,8 +233,9 @@ function displayPeople(people){
   }).join("\n"));
 }
 
-function displayPerson(person){
-
+function displayPerson(person, people){
+  let spouse = getSpouse(person, people);
+  let parents = getParents(person, people);
   let personInfo = "First Name: " + person.firstName + "\n";
   personInfo += "Last Name: " + person.lastName + "\n";
   personInfo += "Gender: " + person.gender + "\n";
@@ -242,9 +243,10 @@ function displayPerson(person){
   personInfo += "Weight: " + person.weight + "\n";
   personInfo += "Eye Color: " + person.eyeColor + "\n";
   personInfo += "Occupation: " + person.occupation + "\n";
-  personInfo += "Parents: " + person.parents + "\n";
-  personInfo += "Spouse: " + person.currentSpouse;
+  personInfo += "Parents: " + parents + "\n";
+  personInfo += "Spouse: " + spouse;
     alert(personInfo);
+    app(people);
 }
 
 function displayFamily(person, people){
